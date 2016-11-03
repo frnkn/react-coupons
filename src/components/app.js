@@ -1,27 +1,22 @@
 import React from 'react';
-import Header from 'components/header';
-import Footer from 'components/footer';
 import CouponList from 'components/couponList';
 
 export default class App extends React.Component{
   constructor(props) {
     super(props);
-    console.log("Hello World. I'm the app.");
-    var hash = CryptoJS.MD5("Messages");
-    console.log("HASH", hash.toString(CryptoJS.enc.Base64));
-    this.state = {coupons: [], amount: 5};
+    this.state = {coupons: [], amount: 0};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   };
 
   makeid() {
-  var text = "";
-   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-   for( var i=0; i < 15; i++ )
-       text += possible.charAt(Math.floor(Math.random() * possible.length));
+    for( var i=0; i < 15; i++ )
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-   return text;
+    return text;
   }
 
   handleChange(e) {
@@ -29,10 +24,7 @@ export default class App extends React.Component{
   }
 
   handleSubmit(e) {
-
-    console.log(this.state.amount);
     e.preventDefault();
-    console.log("handle submit called");
     let all_coupons = [];
     for (let i=0; i < this.state.amount; i++) {
       var hash = CryptoJS.MD5(this.makeid());
@@ -41,33 +33,49 @@ export default class App extends React.Component{
         id: string_hash,
         code: string_hash
       }
-
       all_coupons.push(couponCode);
     }
-     console.log("ALL COUPONGs", all_coupons);
 
     this.setState(
       {coupons: all_coupons}
-    )
+    );
+
+    $(window).scrollTop($('.coupon-list').offset().top);
+
   }
 
   render() {
     return (
-
-      <div>
-        <Header />
-        <h2>Coupon Code Generator Based On React.js</h2>
-        <form onSubmit={this.handleSubmit}>
+      <div className="section hero">
+        <div className="container">
           <div className="row">
-            <input className="u-full-width" type="text" onChange={this.handleChange} value={this.state.amount}/>
-            <button className="button button-primary">Create Coupon Codes</button>
+            <div className="one-half column">
+              <h1 className="hero-heading">Create Unique Coupon Codes With React JS</h1>
+              <p>Hi there!</p>
+              <p>This is a simple coupon generator for e-commerce websites or blogs. You can create up to 10.000 unique coupon codes. Just enter the amount of required coupon codes, click the button - you will than get the list of coupons.</p>
+              <div className="row">
+                <div className="six columns">
+                  <form onSubmit={this.handleSubmit}>
+                    <div className="row">
+                      <label htmlFor="amount_field">Enter amount of coupons:</label>
+                      <input id="amount_field" className="u-full-width" type="number" min="1" max="10000" onChange={this.handleChange} value={this.state.amount}/>
+                      <button className="button button-primary">Create Coupon Codes</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div className="one-half column">
+              <img className="u-max-full-width" src="https://placekitten.com/g/500/300" />
+            </div>
+            <div className="row">
+              <div className="twelve columns coupon-list">
+                <CouponList coupons={this.state.coupons} />
+              </div>
+            </div>
           </div>
-        </form>
-        <CouponList coupons={this.state.coupons} />
-        <Footer />
+        </div>
       </div>
-
-    )
+    );
   }
-
 }
