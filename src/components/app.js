@@ -8,18 +8,11 @@ export default class App extends React.Component{
     super(props);
     console.log("Hello World. I'm the app.");
     var hash = CryptoJS.MD5("Messages");
-
     console.log("HASH", hash.toString(CryptoJS.enc.Base64));
-    this.state = {coupons: []};
+    this.state = {coupons: [], amount: 5};
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   };
-
-  createCoupons(amount) {
-    let i = amount;
-
-
-    return "123312321";
-  }
 
   makeid() {
   var text = "";
@@ -31,33 +24,31 @@ export default class App extends React.Component{
    return text;
   }
 
+  handleChange(e) {
+    this.setState({amount: e.target.value});
+  }
+
   handleSubmit(e) {
+
+    console.log(this.state.amount);
     e.preventDefault();
     console.log("handle submit called");
     let all_coupons = [];
-    for (let i=0; i < 100; i++) {
+    for (let i=0; i < this.state.amount; i++) {
       var hash = CryptoJS.MD5(this.makeid());
       var string_hash = hash.toString(CryptoJS.enc.Base64);
-      console.log("StringHAsh", string_hash);
       var couponCode = {
         id: string_hash,
         code: string_hash
       }
+
       all_coupons.push(couponCode);
     }
      console.log("ALL COUPONGs", all_coupons);
 
-    var hash = CryptoJS.MD5(this.makeid());
-    var string_hash = hash.toString(CryptoJS.enc.Base64);
-    console.log("StringHAsh", string_hash);
-    var couponCode = {
-      id: Date.now(),
-      code: string_hash
-    }
-
-    this.setState((prevState) => ({
-      coupons: prevState.coupons.concat(couponCode)
-    }));
+    this.setState(
+      {coupons: all_coupons}
+    )
   }
 
   render() {
@@ -66,7 +57,12 @@ export default class App extends React.Component{
       <div>
         <Header />
         <h2>Coupon Code Generator Based On React.js</h2>
-        <button onClick={this.handleSubmit} className="button button-primary">Create Coupon Codes</button>
+        <form onSubmit={this.handleSubmit}>
+          <div className="row">
+            <input className="u-full-width" type="text" onChange={this.handleChange} value={this.state.amount}/>
+            <button className="button button-primary">Create Coupon Codes</button>
+          </div>
+        </form>
         <CouponList coupons={this.state.coupons} />
         <Footer />
       </div>
