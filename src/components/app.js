@@ -7,23 +7,52 @@ export default class App extends React.Component{
   constructor(props) {
     super(props);
     console.log("Hello World. I'm the app.");
-    //var hash = CryptoJS.MD5("Message");
-    //console.log("HASH", hash);
+    var hash = CryptoJS.MD5("Messages");
+
+    console.log("HASH", hash.toString(CryptoJS.enc.Base64));
     this.state = {coupons: []};
     this.handleSubmit = this.handleSubmit.bind(this);
   };
 
-  createCoupons() {
+  createCoupons(amount) {
+    let i = amount;
+
+
     return "123312321";
+  }
+
+  makeid() {
+  var text = "";
+   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+   for( var i=0; i < 15; i++ )
+       text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+   return text;
   }
 
   handleSubmit(e) {
     e.preventDefault();
     console.log("handle submit called");
+    let all_coupons = [];
+    for (let i=0; i < 100; i++) {
+      var hash = CryptoJS.MD5(this.makeid());
+      var string_hash = hash.toString(CryptoJS.enc.Base64);
+      console.log("StringHAsh", string_hash);
+      var couponCode = {
+        id: string_hash,
+        code: string_hash
+      }
+      all_coupons.push(couponCode);
+    }
+     console.log("ALL COUPONGs", all_coupons);
 
+    var hash = CryptoJS.MD5(this.makeid());
+    var string_hash = hash.toString(CryptoJS.enc.Base64);
+    console.log("StringHAsh", string_hash);
     var couponCode = {
       id: Date.now(),
-      code: "123456"
+      code: string_hash
     }
 
     this.setState((prevState) => ({
