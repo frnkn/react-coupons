@@ -40,7 +40,11 @@ export default class App extends React.Component{
       {coupons: all_coupons}
     );
 
-    $(window).scrollTop($('.coupon-list').offset().top);
+    $('html, body').animate({
+      scrollTop: $('.coupon-list').offset().top
+    }, 1200);
+
+    //$(window).scrollTop($('.coupon-list').offset().top);
 
   }
 
