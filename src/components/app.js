@@ -1,5 +1,6 @@
 import React from 'react';
 import CouponList from 'components/couponList';
+import Footer from 'components/footer';
 
 export default class App extends React.Component{
   constructor(props) {
@@ -50,6 +51,7 @@ export default class App extends React.Component{
 
   render() {
     return (
+      <div>
       <div className="section hero">
         <div className="container">
           <div className="row">
@@ -80,6 +82,9 @@ export default class App extends React.Component{
             </div>
           </div>
         </div>
+      </div>
+      <div className="u-cf"></div>
+      <Footer />
       </div>
     );
   }
