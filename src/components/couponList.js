@@ -9,7 +9,6 @@ export default class Couponlist extends React.Component {
     return (
       <div className="row">
         <div className="twelve columns">
-          <h2>Your Coupons</h2>
           <table className='u-full-width'>
             <tbody>
                 {this.props.coupons.map(coupon => (

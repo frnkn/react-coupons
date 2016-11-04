@@ -74,6 +74,7 @@ export default class App extends React.Component{
             </div>
             <div className="row">
               <div className="twelve columns coupon-list">
+                <h2>{this.state.coupons.length} Coupons generated</h2>
                 <CouponList coupons={this.state.coupons} />
               </div>
             </div>
