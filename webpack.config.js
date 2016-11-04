@@ -23,7 +23,7 @@ module.exports = {
             exclude: /node_modules/,
             loaders: ['react-hot-loader/webpack', 'babel?presets[]=react,presets[]=es2015']
         }
-        ]
+      ]
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
