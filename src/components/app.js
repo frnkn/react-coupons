@@ -1,6 +1,9 @@
 import React from 'react';
+import $ from 'jquery';
 import CouponList from 'components/couponList';
 import Footer from 'components/footer';
+
+
 
 export default class App extends React.Component{
   constructor(props) {
@@ -44,9 +47,6 @@ export default class App extends React.Component{
     $('html, body').animate({
       scrollTop: $('.coupon-list').offset().top
     }, 1200);
-
-    //$(window).scrollTop($('.coupon-list').offset().top);
-
   }
 
   render() {
